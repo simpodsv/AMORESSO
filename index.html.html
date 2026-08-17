@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amoresso — Café de especialidad</title>
+<meta name="description" content="Amoresso: café de especialidad, catas, orígenes y ritual de taza en El Salvador.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500;1,9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#241611;
+    --espresso-2:#2f1d16;
+    --cherry:#8c2a3b;
+    --cherry-light:#b5495b;
+    --gold:#c89b4c;
+    --parchment:#f3e9d8;
+    --parchment-dim:#e4d5ba;
+    --ink:#241611;
+    --line:#4a362b;
+    --max:1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    margin:0;
+    font-weight:600;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--cherry);
+  }
+  section{padding:112px 0;}
+  @media(max-width:720px){ section{padding:76px 0;} }
+
+  :focus-visible{outline:2px solid var(--cherry);outline-offset:3px;}
+
+  /* reveal-on-scroll */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:var(--espresso);
+    color:var(--parchment);
+    padding:0;
+    overflow:hidden;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .grain{
+    position:absolute;inset:0;
+    opacity:.10;
+    pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero-inner{position:relative;z-index:2;padding:120px 28px 90px;max-width:var(--max);margin:0 auto;width:100%;}
+  .hero .eyebrow{color:var(--gold);}
+  .hero h1{
+    font-style:italic;
+    font-size:clamp(56px,11vw,132px);
+    line-height:.92;
+    margin:14px 0 22px;
+    letter-spacing:-.01em;
+  }
+  .hero p.lede{
+    max-width:520px;
+    font-size:19px;
+    color:var(--parchment-dim);
+    margin:0 0 40px;
+  }
+  .hero-cta{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--parchment);
+    text-decoration:none;
+    border-bottom:1px solid var(--gold);
+    padding-bottom:6px;
+  }
+  .hero-cta:hover{color:var(--gold);}
+
+  /* roast curve svg */
+  .roast-curve{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;z-index:1;}
+  .roast-curve path{
+    fill:none;
+    stroke:var(--cherry-light);
+    stroke-width:2;
+    stroke-dasharray:1400;
+    stroke-dashoffset:1400;
+    animation:draw 2.6s ease forwards .3s;
+  }
+  .roast-curve .marker{
+    fill:var(--gold);
+    opacity:0;
+    animation:fadeIn .6s ease forwards 2.6s;
+  }
+  .roast-curve text{
+    fill:var(--parchment-dim);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    opacity:0;
+    animation:fadeIn .6s ease forwards 2.8s;
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @keyframes fadeIn{to{opacity:1;}}
+  @media (prefers-reduced-motion: reduce){
+    .roast-curve path{animation:none;stroke-dashoffset:0;}
+    .roast-curve .marker,.roast-curve text{animation:none;opacity:1;}
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--parchment);}
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+    align-items:start;
+    margin-top:24px;
+  }
+  @media(max-width:820px){ .about-grid{grid-template-columns:1fr;gap:44px;} }
+  .about h2{font-size:clamp(30px,4vw,42px);margin:14px 0 22px;}
+  .about p{font-size:17px;max-width:46ch;color:#3a291f;}
+  .about p + p{margin-top:14px;}
+
+  .curve-card{
+    background:var(--espresso);
+    color:var(--parchment);
+    border-radius:4px;
+    padding:32px 28px 26px;
+  }
+  .curve-card .eyebrow{color:var(--gold);margin-bottom:18px;display:block;}
+  .curve-card svg{width:100%;height:auto;}
+  .curve-card .curve-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--parchment-dim);
+    display:flex;justify-content:space-between;
+    margin-top:14px;
+    border-top:1px solid var(--line);
+    padding-top:14px;
+  }
+
+  /* ---------- PILLARS (cupping notes) ---------- */
+  .pillars{background:var(--espresso-2);color:var(--parchment);}
+  .pillars .eyebrow{color:var(--gold);}
+  .pillars h2{font-size:clamp(30px,4vw,42px);margin:14px 0 48px;max-width:14ch;}
+  .notes-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media(max-width:820px){ .notes-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:520px){ .notes-grid{grid-template-columns:1fr;} }
+  .note{
+    background:var(--espresso-2);
+    padding:30px 26px;
+    transition:background .25s ease;
+  }
+  .note:hover{background:#3a241c;}
+  .note .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--gold);
+    display:block;margin-bottom:10px;
+  }
+  .note h3{font-size:20px;font-weight:500;font-style:italic;margin-bottom:8px;}
+  .note p{margin:0;font-size:14.5px;color:var(--parchment-dim);}
+
+  /* ---------- MEDIA KIT ---------- */
+  .kit{background:var(--parchment);}
+  .kit-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:44px;}
+  .kit-head h2{font-size:clamp(30px,4vw,42px);}
+  .kit-head p{max-width:38ch;color:#3a291f;font-size:15.5px;}
+  .stat-strip{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  @media(max-width:820px){ .stat-strip{grid-template-columns:repeat(2,1fr);} }
+  .stat{
+    padding:26px 22px;
+    border-right:1px solid var(--line);
+  }
+  .stat:last-child{border-right:none;}
+  @media(max-width:820px){ .stat:nth-child(2n){border-right:none;} }
+  .stat .n{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:clamp(26px,3.4vw,36px);
+    color:var(--cherry);
+    display:block;
+  }
+  .stat .l{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--line);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .kit-note{
+    margin-top:18px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--cherry);
+  }
+
+  /* ---------- FEED ---------- */
+  .feed{background:var(--espresso-2);color:var(--parchment);}
+  .feed .head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:36px;}
+  .feed h2{font-size:clamp(28px,3.6vw,38px);}
+  .feed .ig-link{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;text-decoration:none;color:var(--gold);
+    border-bottom:1px solid var(--gold);padding-bottom:4px;
+  }
+  .feed-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:6px;
+  }
+  @media(max-width:720px){ .feed-grid{grid-template-columns:repeat(3,1fr);} }
+  .feed-grid a{
+    position:relative;
+    display:block;
+    aspect-ratio:1/1;
+    background:linear-gradient(150deg,#3a241c,#241611);
+    overflow:hidden;
+  }
+  .feed-grid a::after{
+    content:attr(data-tag);
+    position:absolute;left:8px;bottom:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;color:var(--parchment-dim);
+    opacity:0;transition:opacity .2s ease;
+  }
+  .feed-grid a:hover::after{opacity:1;}
+  .feed-grid a:hover{outline:1px solid var(--gold);}
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--espresso);color:var(--parchment);text-align:left;}
+  .contact h2{font-size:clamp(34px,6vw,64px);font-style:italic;max-width:14ch;margin-bottom:22px;}
+  .contact p{color:var(--parchment-dim);max-width:48ch;font-size:17px;margin-bottom:34px;}
+  .mail-btn{
+    display:inline-flex;align-items:center;gap:12px;
+    background:var(--cherry);
+    color:var(--parchment);
+    text-decoration:none;
+    padding:16px 26px;
+    border-radius:2px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+    transition:background .2s ease;
+  }
+  .mail-btn:hover{background:var(--cherry-light);}
+
+  footer{
+    background:var(--espresso);
+    color:var(--line);
+    padding:26px 0 34px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+  }
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:var(--parchment-dim);}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="grain"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">Café de especialidad · El Salvador</span>
+    <h1>Amoresso</h1>
+    <p class="lede">Un cuaderno de tueste, cata y ritual de taza — para quienes ya dejaron el café de bolsa atrás.</p>
+    <a class="hero-cta" href="#sobre">Bajar al primer trago ↓</a>
+  </div>
+  <svg class="roast-curve" viewBox="0 0 1120 220" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,200 C160,196 260,180 340,150 C430,116 470,78 560,60 C650,44 720,50 800,40 C900,28 980,20 1120,14"></path>
+    <circle class="marker" cx="560" cy="60" r="4.5"></circle>
+    <text x="572" y="52">primer crack</text>
+  </svg>
+</section>
+
+<section class="about" id="sobre">
+  <div class="wrap about-grid">
+    <div>
+      <span class="eyebrow">Sobre Amoresso</span>
+      <h2>Café contado como se cuenta bien, sin volverlo un manual.</h2>
+      <p>Amoresso nació de una libreta de catas que se salió de control. Cada publicación es una excusa para hablar de origen, proceso y taza: de dónde viene el grano, qué le pasó antes de llegar a la bolsa, y por qué sabe distinto según cómo lo prepares.</p>
+      <p>No vendemos café — contamos el que ya está en la mesa de otros: fincas salvadoreñas, tostadores emergentes y la gente que arma su ritual de la mañana con calma.</p>
+    </div>
+    <div class="curve-card reveal">
+      <span class="eyebrow">Perfil de tueste — lectura de referencia</span>
+      <svg viewBox="0 0 420 180" aria-hidden="true">
+        <path d="M0,150 C60,148 100,132 140,108 C185,80 210,50 260,36 C310,22 360,16 420,10" fill="none" stroke="#c89b4c" stroke-width="2"></path>
+        <circle cx="260" cy="36" r="4" fill="#8c2a3b"></circle>
+      </svg>
+      <div class="curve-label">
+        <span>0:00 — carga</span>
+        <span>primer crack</span>
+        <span>descarga</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pillars">
+  <div class="wrap">
+    <span class="eyebrow">De qué hablamos</span>
+    <h2>Notas de cata del contenido</h2>
+    <div class="notes-grid">
+      <div class="note reveal">
+        <span class="tag">Origen</span>
+        <h3>Fincas y productores</h3>
+        <p>Historias de finca salvadoreña: altura, variedad y la gente detrás de cada cosecha.</p>
+      </div>
+      <div class="note reveal">
+        <span class="tag">Proceso</span>
+        <h3>Lavado, honey, natural</h3>
+        <p>Qué le hace cada proceso al grano y cómo cambia lo que termina en tu taza.</p>
+      </div>
+      <div class="note reveal">
+        <span class="tag">Ritual</span>
+        <h3>Métodos de preparación</h3>
+        <p>V60, prensa francesa, espresso — ajustes simples que cambian todo el resultado.</p>
+      </div>
+      <div class="note reveal">
+        <span class="tag">Cata</span>
+        <h3>Notas y maridajes</h3>
+        <p>Cómo describir lo que estás tomando, y con qué acompañarlo sin complicarse.</p>
+      </div>
+      <div class="note reveal">
+        <span class="tag">Comunidad</span>
+        <h3>Tostadores emergentes</h3>
+        <p>Marcas y cafeterías de especialidad que vale la pena conocer en El Salvador.</p>
+      </div>
+      <div class="note reveal">
+        <span class="tag">Práctica</span>
+        <h3>Equipo y errores comunes</h3>
+        <p>Lo que realmente vale la pena comprar, y los errores que arruinan una buena taza.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kit">
+  <div class="wrap">
+    <div class="kit-head reveal">
+      <div>
+        <span class="eyebrow">Media kit</span>
+        <h2>La comunidad, en números</h2>
+      </div>
+      <p>Cifras de referencia para marcas de café, tostadores y cafeterías interesadas en colaborar con Amoresso.</p>
+    </div>
+    <div class="stat-strip reveal">
+      <div class="stat">
+        <span class="n">— K</span>
+        <span class="l">Seguidores IG</span>
+      </div>
+      <div class="stat">
+        <span class="n">—%</span>
+        <span class="l">Engagement rate</span>
+      </div>
+      <div class="stat">
+        <span class="n">— K</span>
+        <span class="l">Alcance mensual</span>
+      </div>
+      <div class="stat">
+        <span class="n">SV</span>
+        <span class="l">Audiencia principal</span>
+      </div>
+    </div>
+    <p class="kit-note">↳ Reemplaza estas cifras con tus datos reales de Instagram (Insights → Cuenta profesional).</p>
+  </div>
+</section>
+
+<section class="feed">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Lo último en Instagram</h2>
+      <a class="ig-link" href="https://instagram.com/amoresso.sv" target="_blank" rel="noopener">@amoresso.sv ↗</a>
+    </div>
+    <div class="feed-grid reveal">
+      <a href="https://instagram.com/amoresso.sv" target="_blank" rel="noopener" data-tag="Origen"></a>
+      <a href="https://instagram.com/amoresso.sv" target="_blank" rel="noopener" data-tag="Cata"></a>
+      <a href="https://instagram.com/amoresso.sv" target="_blank" rel="noopener" data-tag="Ritual"></a>
+      <a href="https://instagram.com/amoresso.sv" target="_blank" rel="noopener" data-tag="Proceso"></a>
+      <a href="https://instagram.com/amoresso.sv" target="_blank" rel="noopener" data-tag="Finca"></a>
+      <a href="https://instagram.com/amoresso.sv" target="_blank" rel="noopener" data-tag="Equipo"></a>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="wrap">
+    <h2>¿Hablamos de café?</h2>
+    <p>Marcas, tostadores y cafeterías: si les interesa aparecer en Amoresso, este es el lugar para empezar la conversación.</p>
+    <a class="mail-btn" href="mailto:hola@amoresso.sv">Escribir a Amoresso →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Amoresso — café de especialidad</span>
+    <span>El Salvador</span>
+  </div>
+</footer>
+
+<script>
+  // reveal-on-scroll
+  const items = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.15});
+    items.forEach(el=>io.observe(el));
+  } else {
+    items.forEach(el=>el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
